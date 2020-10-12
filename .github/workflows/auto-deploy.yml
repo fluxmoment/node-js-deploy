@@ -1,0 +1,31 @@
+name: auto-deply
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy NodeJS app
+        uses: appleboy/ssh-action@v0.1.2
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          script: |
+            # Install Node & NPM if they dont exist
+            dpkg -s nodejs 2>/dev/null >/dev/null || sudo apt-get -y install nodejs
+            dpkg -s npm 2>/dev/null >/dev/null || sudo apt-get -y install npm
+            # Create Application Folder
+            mkdir -p ~/app/
+            cd ~/app/
+            # Clone repository
+            git clone --single-branch --branch main ${{ GITHUB_SERVER_URL }}/${{ GITHUB_REPOSITORY }}
+            # Install Dependencies
+            npm install 
+            # Build if required
+            npm run build
+            # Start with PM2
+            pm2 start app.js
