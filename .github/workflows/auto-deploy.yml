@@ -26,6 +26,7 @@ jobs:
             # Clone repository
             git clone --single-branch --branch main https://github.com/${{ github.repository }} .
             # Install Dependencies
+            npm install -g pm2
             npm install 
             npm run build
             # Start with PM2
