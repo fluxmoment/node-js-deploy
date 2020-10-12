@@ -20,9 +20,9 @@ jobs:
             dpkg -s nodejs 2>/dev/null >/dev/null || sudo apt-get -y install nodejs
             dpkg -s npm 2>/dev/null >/dev/null || sudo apt-get -y install npm
             # Create Application Folder
-            mkdir -p ~/app/
-            cd ~/app/
-            rm -rf *
+            rm -rf app
+            mkdir -p ~/app
+            cd ~/app
             # Clone repository
             git clone --single-branch --branch main https://github.com/${{ github.repository }} .
             # Install Dependencies
