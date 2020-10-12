@@ -22,11 +22,11 @@ jobs:
             # Create Application Folder
             mkdir -p ~/app/
             cd ~/app/
+            rm -rf *
             # Clone repository
             git clone --single-branch --branch main https://github.com/${{ github.repository }} .
             # Install Dependencies
             npm install 
-            # Build if required
             npm run build
             # Start with PM2
             pm2 start app.js
