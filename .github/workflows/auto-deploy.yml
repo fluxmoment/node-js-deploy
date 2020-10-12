@@ -12,10 +12,12 @@ jobs:
         if: ${{ secrets.USERNAME }}
         env:
           USERNAME: ${{ secrets.USERNAME }}
+        run: echo "$USERNAME"
       - name: Default username root
         if: ${{ !secrets.USERNAME }}
         env:
           USERNAME: 'root'
+        run: echo "$USERNAME"
       - name: Deploy NodeJS app
         uses: appleboy/ssh-action@v0.1.2
         with:
