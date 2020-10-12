@@ -23,7 +23,7 @@ jobs:
             mkdir -p ~/app/
             cd ~/app/
             # Clone repository
-            git clone --single-branch --branch main ${{ github.repository }}
+            git clone --single-branch --branch main https://github.com/${{ github.repository }}
             # Install Dependencies
             npm install 
             # Build if required
