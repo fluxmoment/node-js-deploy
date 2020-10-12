@@ -8,22 +8,12 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Username from secrets
-        if: ${{ secrets.USERNAME }}
-        env:
-          USERNAME: ${{ secrets.USERNAME }}
-        run: echo "$USERNAME"
-      - name: Default username root
-        if: ${{ !secrets.USERNAME }}
-        env:
-          USERNAME: 'root'
-        run: echo "$USERNAME"
       - name: Deploy NodeJS app
         uses: appleboy/ssh-action@v0.1.2
         with:
           host: ${{ secrets.HOST }}
           port: 22
-          username: env.USERNAME  }}
+          username: ${{ secrets.USERNAME }}
           key: ${{ secrets.KEY }}
           script: |
             # Install Node & NPM if they dont exist
